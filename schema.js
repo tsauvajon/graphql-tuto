@@ -1,8 +1,20 @@
 const { buildSchema } = require('graphql');
 
 const schema = buildSchema(`
+  input MessageInput {
+    content: String
+    author: String
+  }
+
+  type Message {
+    id: ID!
+    content: String
+    author: String
+  }
+
   type Mutation {
-    setMessage(message: String): String
+    createMessage(input: MessageInput): Message
+    updateMessage(id: ID!, input: MessageInput): Message
   }
 
   type RandomDie {
@@ -16,7 +28,7 @@ const schema = buildSchema(`
     random: Float!
     rollDice(numDice: Int!, numSides: Int): [Int]
     getDie(numSides: Int): RandomDie
-    getMessage: String
+    getMessage(id: ID!): Message
   }
 `);
 

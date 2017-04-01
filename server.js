@@ -5,8 +5,6 @@ const RandomDie = require('./RandomDie');
 const schema = require('./schema');
 const rootValue = require('./rootValue');
 
-const fakeDb = {};
-
 const app = express();
 
 app.use('/graphql', graphqlHTTP({

@@ -1,3 +1,15 @@
+const { randomBytes } = require('crypto');
+// const Message = require('./Message');
+
+const fakeDb = {};
+
+
+function Message(id, content, author) {
+  this.id = id;
+  this.content = content;
+  this.author = author;
+}
+
 const rootValue = {
   hello: () => {
     return 'Hello world !';
@@ -12,7 +24,25 @@ const rootValue = {
     }
     return output;
   },
-  getDie: ({ numSides }) => new RandomDie(numSides || 6)
+  getDie: ({ numSides }) => new RandomDie(numSides || 6),
+  createMessage: ({ input }) => {
+    const id = randomBytes(10).toString('hex');
+    fakeDb[id] = input;
+    return new Message(id, input);
+  },
+  getMessage: (id) => {
+    if (!fakeDb[id]) {
+      throw new Error(`no message with id: ${id}`);
+    }
+    return new Message(id, fakeDb[id]);
+  },
+  updateMessage: ({ id, input }) => {
+    if (!fakeDb[id]) {
+      throw new Error(`no message with id: ${id}`);
+    }
+    fakeDb[id] = input;
+    return new Message(id, input);
+  },
 };
 
 module.exports = rootValue;
