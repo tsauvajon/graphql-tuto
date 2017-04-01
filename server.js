@@ -7,6 +7,13 @@ const rootValue = require('./rootValue');
 
 const app = express();
 
+const loggingMiddleware = (req, res, next) => {
+  console.log('ip: ', req.ip);
+  next();
+}
+
+app.use(loggingMiddleware);
+
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue,

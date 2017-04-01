@@ -1,14 +1,7 @@
 const { randomBytes } = require('crypto');
-// const Message = require('./Message');
+const Message = require('./Message');
 
 const fakeDb = {};
-
-
-function Message(id, content, author) {
-  this.id = id;
-  this.content = content;
-  this.author = author;
-}
 
 const rootValue = {
   hello: () => {
@@ -43,6 +36,7 @@ const rootValue = {
     fakeDb[id] = input;
     return new Message(id, input);
   },
+  ip: (args, request) => request.ip,
 };
 
 module.exports = rootValue;
