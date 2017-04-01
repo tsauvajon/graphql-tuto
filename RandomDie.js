@@ -17,4 +17,3 @@ class RandomDie {
 }
 
 module.exports = RandomDie;
-// export default RandomDie;
